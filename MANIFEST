@@ -1,0 +1,7 @@
+MANIFEST
+COPYING
+Changes
+README
+Makefile.PL
+lib/Data/ISO8583.pm
+lib/Data/ISO8583/VISA.pm
