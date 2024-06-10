@@ -102,9 +102,9 @@ sub parse_iso8583_bitmap
   my $data = shift;
   my $len  = shift || 8; # bitmap length in bytes, default is 8
   my $one  = shift;      # if true, no multiple bitmaps expected, bit 1 regular data
-  my $base = shift || 2; # base, defaults to 2
+  my $base = shift;      # base, defaults to 2
 
-  $base = 1 if $one and ! $base; # if single bitmap, and no base specified, set to 1
+  $base = $one ? 1 : 2 unless $base; # if single bitmap, and no base specified, set to 1
 
   my $fpos = $base - 1;
   my @fmap;
@@ -113,7 +113,7 @@ sub parse_iso8583_bitmap
     {
     my $bm = substr( $data, $skip, $len );
 
-#print "BITMAP: ".str_hex($bm)." skip $skip, len $len\n";
+#print "BITMAP: base: $base, one: [$one] ".str_hex($bm)." skip $skip, len $len\n";
 #print HexDump $bm;
 
     return () unless length( $bm ) == $len;
